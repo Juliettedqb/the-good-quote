@@ -2,6 +2,8 @@
     "name" : "EN test with API",
     "version" : "1.0.0",
     "description" : "whatever it does",
+    "permissions": ["storage", "tabs","scripting"],
+    "host_permissions": ["<all_urls>"],
     "manifest_version" : 3,
     "author" : {
         "author 1": "Alice Darondeau",
@@ -11,6 +13,9 @@
     "action" : {
         "default_popup" : "index.html", 
         "default_title" : "EN test with API"
-    }
+    },
+    "background": {
+        "service_worker": "background.js"
+      }
 
 }

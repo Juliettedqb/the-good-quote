@@ -7,12 +7,25 @@ async function fetchData(){
         }
     };
     
-    const res = await fetch('https://quotes15.p.rapidapi.com/quotes/random/?language_code=en', options)
+    const res = await fetch('https://quotes15.p.rapidapi.com/quotes/random/?language_code=en', options);
     const record = await res.json();
 
-    console.log('record', record);
+    // console.log('record', record);
+    //document.getElementById("quotes").innerHTML = record.content;
+    //console.log(document)
+    //console.log(typeof record.content)
 
-    document.getElementById("quotes").innerHTML = record.content;
+    document.querySelectorAll("img").forEach(e => e.remove());
+
+    console.log(document.querySelectorAll("img"))
+
+    let arr = document.getElementsByClassName("thumbcaption");
+    for(let i=0; i<arr.length; i++){
+        arr[i].innerText = record.content;
+    }
+
+
 }
 
 fetchData()
+
