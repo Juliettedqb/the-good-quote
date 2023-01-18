@@ -13,7 +13,7 @@ function transformImages() {
     ];
       
     //on récup tous les éléments qui ont le tag "img" dans la tab ouverte
-    let imgs = document.getElementsByTagName("img");
+    let imgs = document.querySelectorAll("img, image");
       
     //on parcourt toutes les images trouvées pour changer leurs URLS
     for (var i =0 ; i < imgs.length ; i++) {
