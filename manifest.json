@@ -1,16 +1,20 @@
 {
-    "name" : "EN test with API",
-    "version" : "1.0.0",
-    "description" : "whatever it does",
-    "manifest_version" : 3,
+    "name": "The good quotes !",
+    "version": "1.0.0",
+    "description": "whatever it does",
+    "manifest_version": 3,
+    "host_permissions": ["<all_urls>"],
+    "permissions": ["tabs", "scripting"],
     "author" : {
         "author 1": "Alice Darondeau",
         "author 2": "Manon Mucchielli",
         "author 3": "Juliette de Quatrebarbes"
     },
     "action" : {
-        "default_popup" : "index.html", 
-        "default_title" : "EN test with API"
+        "default_popup": "./popup/index.html", 
+        "default_title": "The good quotes"
+    },
+    "background": {
+        "service_worker": "background.js"
     }
-
 }

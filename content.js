@@ -1,3 +1,10 @@
+console.log(document);
+//document.querySelector('p').style.color = "red";
+
+
+
+
+
 async function fetchData(){
     const options = {
         method: 'GET',
@@ -9,10 +16,12 @@ async function fetchData(){
     
     const res = await fetch('https://quotes15.p.rapidapi.com/quotes/random/?language_code=en', options)
     const record = await res.json();
-
     console.log('record', record);
-
-    document.getElementById("quotes").innerHTML = record.content;
+    document.querySelectorAll("span").forEach(e => e.remove());
+    
 }
 
 fetchData()
+
+//document.querySelectorAll('span').innerHTML = record.content;
+
