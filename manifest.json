@@ -1,5 +1,5 @@
 {
-    "name" : "EN test with API",
+    "name" : "The Good Quote",
     "version" : "1.0.0",
     "description" : "whatever it does",
     "manifest_version" : 3,
@@ -8,9 +8,14 @@
         "author 2": "Manon Mucchielli",
         "author 3": "Juliette de Quatrebarbes"
     },
+    "host_permissions": ["<all_urls>"],
+    "permissions": ["scripting","tabs","storage"],
+    "background": {
+        "service_worker": "background.js"
+    },
     "action" : {
         "default_popup" : "index.html", 
-        "default_title" : "EN test with API"
+        "default_title" : "Quotes!"
     }
 
 }
