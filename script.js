@@ -26,4 +26,37 @@ function transformImages() {
 
 transformImages();
 
+//fonction qui récup les données de l'API quote
+//et qui les injecte dans la popup html
+async function fetchData(){
+    console.log("*********************HELLO***************************")
+    const options = {
+        method: 'GET',
+        headers: {
+            'X-RapidAPI-Key': 'ee7279b9bbmsh7172f99cef0519fp17ca96jsn6ac28430c532',
+            'X-RapidAPI-Host': 'quotes15.p.rapidapi.com'
+        }
+    };
+        
+    const res = await fetch('https://quotes15.p.rapidapi.com/quotes/random/?language_code=en', options)
+    //transfo des données en json
+    const record = await res.json();
 
+    //on appelle la fonction qui créé l'élement
+    injectQuote(record.content);
+}
+
+//fonction qui créé une nouvelle div html dans laquelle on met la quote
+function injectQuote(quote) {
+    const newElement = document.createElement("div");
+    newElement.className = "newQuote";
+    newElement.innerHTML = quote;
+    document.body.appendChild(newElement);
+
+    console.log(newElement);
+    //css de la quote
+    newElement.style.zIndex = "10000000";
+    newElement.style.fontSize = "40px"
+}
+
+fetchData();
