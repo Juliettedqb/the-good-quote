@@ -25,5 +25,16 @@ async function fetchData(){
     const record = await res.json();
 
     //on injecte les quotes récupérées dans l'élément html 'quotes'
-    document.getElementById("quotes").innerHTML = record.content;
+    //document.getElementById("quotes").innerHTML = record.content;
+
+    //on appelle la fonction qui créé l'élement
+    injectQuote(record.content);
+}
+
+//fonction qui créé une nouvelle div html dans laquelle on met la quote
+function injectQuote(quote) {
+    const newElement = document.createElement("div");
+    newElement.className = "newQuote";
+    newElement.innerHTML = quote;
+    document.body.appendChild(newElement);
 }
