@@ -1,3 +1,10 @@
+//on écoute le changement du storage déclenché par le bouton de la popup
+chrome.storage.local.onChanged.addListener((changes, local) => {
+    //puis on lance les quotes + les lamas
+    fetchData();
+    transformImages();
+})
+
 //fonction qui remplace les images de la page par des lamas
 function transformImages() {
 
@@ -24,7 +31,6 @@ function transformImages() {
     }
 }
 
-transformImages();
 
 //fonction qui récup les données de l'API quote
 //et qui les injecte dans la popup html
@@ -50,13 +56,22 @@ async function fetchData(){
 function injectQuote(quote) {
     const newElement = document.createElement("div");
     newElement.className = "newQuote";
-    newElement.innerHTML = quote;
+    const host = document.createElement("h3");
+    host.innerHTML = quote;
+    newElement.appendChild(host);
     document.body.appendChild(newElement);
 
-    console.log(newElement);
+
+    //console.log(newElement);
     //css de la quote
     newElement.style.zIndex = "10000000";
-    newElement.style.fontSize = "40px"
+    newElement.style.position = "fixed";
+    newElement.style.width = "100%";
+    newElement.style.backgroundColor = "red";
+    host.style.color = "green";
+    newElement.style.top = "40%";
+    newElement.style.fontSize = "40px";
+    host.style.textAlign = "center";
 }
 
-fetchData();
+
