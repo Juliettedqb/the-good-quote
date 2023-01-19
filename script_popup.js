@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function (){
     document.querySelector('button').addEventListener('click', onclick, false) 
     function onclick(){
         //au click du bouton 'yes please' on load les quotes
-        fetchData();
+        //fetchData();
     };
 
 }, false);
@@ -26,4 +26,5 @@ async function fetchData(){
 
     //on injecte les quotes récupérées dans l'élément html 'quotes'
     document.getElementById("quotes").innerHTML = record.content;
+
 }
