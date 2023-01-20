@@ -18,7 +18,7 @@ function transformImages() {
         "https://s1.1zoom.me/big0/582/371075-sepik.jpg"
     ];
       
-    //on récup tous les éléments qui ont le tag "img" dans la tab ouverte
+    //on récup tous les éléments qui ont le tag "img" ou "image" dans la tab ouverte
     let imgs = document.querySelectorAll("img, image");
       
     //on parcourt toutes les images trouvées pour changer leurs URLS
@@ -36,7 +36,6 @@ function transformImages() {
 //fonction qui récup les données de l'API quote
 //et qui les injecte dans la popup html
 async function fetchData(){
-    console.log("*********************HELLO***************************")
     const options = {
         method: 'GET',
         headers: {
@@ -65,7 +64,7 @@ function injectQuote(quote) {
 
     //console.log(newElement);
     //css de la quote
-    newElement.style.zIndex = "10000000";
+    newElement.style.zIndex = "100000";
     newElement.style.position = "fixed";
     newElement.style.width = "100%";
     newElement.style.backgroundColor = "red";
