@@ -28,6 +28,7 @@ function transformImages() {
         let random = Math.floor(Math.random() * fileNames.length);
         let file = fileNames[random];
         imgs[i].src = file;
+        imgs[i].srcset = file;
     }
 }
 
