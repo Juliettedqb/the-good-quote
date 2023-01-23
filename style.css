@@ -1,15 +1,61 @@
 body {
     text-align:center;
-    width:700px;
+    width:500px;
 }
 
 button {
     width:30%;
+    font-size:20px;
     color:white;
-    background:linear-gradient(#01a9e1, #5bc4bc);
+    background:linear-gradient(#7EE8FA, #EEC0C6);
     border-width:0px;
     border-radius:20px;
     padding:5px;
     font-weight: bold;
     cursor:pointer;
+    font-family: 'Parisienne', cursive;
 }
+/*
+input[type=checkbox]{
+    height: 0;
+    width: 0;
+    visibility: hidden;
+  }
+  
+  label {
+    cursor: pointer;
+    text-indent: -9999px;
+    width: 80px;
+    height: 50px;
+    background: grey;
+    display: block;
+    border-radius: 100px;
+    position: relative;
+  }
+  
+  label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 40px;
+    height: 40px;
+    background: #fff;
+    border-radius: 90px;
+    transition: 0.3s;
+  }
+  
+  input:checked + label {
+    background: #bada55;
+  }
+  
+  input:checked + label:after {
+    left: calc(100% - 5px);
+    transform: translateX(-100%);
+  }
+  
+  label:active:after {
+    width: 100px;
+  }
+  */
+  

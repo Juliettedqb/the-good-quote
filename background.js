@@ -13,3 +13,18 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
     });
     }
   });
+
+
+/*
+chrome.management.setEnabled(yourExtensionID, false);
+
+chrome.browserAction.disable(
+  tabId?: number,
+  callback?: function,
+)
+
+chrome.browserAction.onClicked.addListener(
+  callback: function,
+)
+
+*/

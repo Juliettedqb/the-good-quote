@@ -13,3 +13,16 @@ document.addEventListener('DOMContentLoaded', function (){
     };
 
 }, false);
+
+
+//bouton toggle
+document.addEventListener('DomContentLoaded', function(){
+  document.getElementById('switch').addEventListener('click', onClick,)
+  function toggle(){
+    var active = true;
+    if (x){
+
+    }
+  }
+})
+
