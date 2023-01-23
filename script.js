@@ -41,21 +41,29 @@ function transformImages() {
     //on récup tous les éléments qui ont le tag "img" ou "image" dans la tab ouverte
     let imgs = document.querySelectorAll("img, image");
       
-    //on parcourt toutes les images trouvées pour changer leurs URLS
+    //on parcourt toutes les images trouvées pour changer leurs URLS et rajouter des random facts 
     for (var i =0 ; i < imgs.length ; i++) {
     
-        //on génère une image parmi notre bdd
-        let random = Math.floor(Math.random() * fileNames.length);
-        let file = fileNames[random];
+        //replace actual tab images with llama images
+        const random = Math.floor(Math.random() * fileNames.length);
+        const file = fileNames[random];
         imgs[i].src = file;
         imgs[i].srcset = file;
 
-        let randomBis = Math.floor(Math.random() * facts.length);
-        let randomFacts = facts[randomBis];
+        //add random facts about llamas
+        const randomBis = Math.floor(Math.random() * facts.length);
+        const randomFacts = facts[randomBis];
 
-        var text = document.createElement("p");
-        text.innerHTML = `${randomFacts}`
-        imgs[i].parentNode.insertBefore(text, imgs[i].nextSibling);
+        const text = document.createElement("p");
+        text.innerHTML = randomFacts;
+
+        //these facts appear when the mouse enters the image and disappear when the mouse leaves the image
+        imgs[i].addEventListener("mouseenter", (e) => {
+            e.currentTarget.parentNode.insertBefore(text, e.currentTarget.nextSibling); 
+        })
+        imgs[i].addEventListener("mouseleave", (e) => {
+            text.remove(); 
+        })
     }
 }
 
