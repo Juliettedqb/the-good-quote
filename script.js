@@ -3,6 +3,7 @@ chrome.storage.local.onChanged.addListener((changes, local) => {
     //puis on lance les quotes + les lamas
     fetchData();
     transformImages();
+
 })
 
 //fonction qui remplace les images de la page par des lamas
@@ -34,7 +35,7 @@ function transformImages() {
         "Le lama est doux",
         "Le lama a de grandes dents",
         "L'espèce Lama glama a été décrite pour la première fois en 1758 par le naturaliste suédois Carl von Linné ",
-        "Lise des sous espèces de lama glama : cacsilensis, glama, guanicoe"
+        "Liste des sous espèces de lama glama : cacsilensis, glama, guanicoe"
     ];
       
     //on récup tous les éléments qui ont le tag "img" ou "image" dans la tab ouverte
@@ -75,13 +76,19 @@ async function fetchData(){
     const record = await res.json();
 
     //on appelle la fonction qui créé l'élement
-    injectQuote(record.content);
+    if (record.content == undefined){
+        injectQuote('Carpe diem');
+    } else {
+        injectQuote(record.content);
+    }
+
 }
 
 //fonction qui créé une nouvelle div html dans laquelle on met la quote
 function injectQuote(quote) {
     const newElement = document.createElement("div");
     newElement.className = "newQuote";
+    newElement.id = "newElement";
 
     const host = document.createElement("h3");
     host.innerHTML = quote;
@@ -93,7 +100,7 @@ function injectQuote(quote) {
     divQuote.appendChild(host);
     document.body.appendChild(newElement);
 
-
+    //creation du bloc appel de l'API google pour recup la font
     var link = document.createElement('link');
     link.setAttribute('rel', 'stylesheet');
     link.setAttribute('type', 'text/css');
@@ -101,20 +108,18 @@ function injectQuote(quote) {
     document.head.appendChild(link);
 
     //console.log(newElement);
-    //css de la quote
+    //css des trois éléments de la quote
     newElement.style.zIndex = "100000";
     newElement.style.position = "fixed";
     newElement.style.width = "100%";
-    host.style.color = "white";
-    newElement.style.top = "40%";
+    newElement.style.top = "30%";
 
+    host.style.color = "white";
     host.style.textAlign = "center";
     host.style.padding="30px";
     host.style.fontFamily="'Parisienne', cursive";
 
     divQuote.style.background= "linear-gradient(#7EE8FA, #EEC0C6)";
-    
-
     divQuote.style.padding= "30px";
     divQuote.style.fontSize="30px";
     divQuote.style.width= "50%";
@@ -122,5 +127,17 @@ function injectQuote(quote) {
     divQuote.style.borderRadius="50px";
     divQuote.style.boxShadow="1px 5px 10px 1px #c3bebe";
     //divQuote.style.backgroundImage="url('icons/lama.png')";
+
+    //appel de la fonction pour faire disparaître la quote
+    removeQuote()
+}
+
+function removeQuote(){
+    newElement = document.getElementById('newElement') ; 
+    //au click sur la quote, les 3 divs disparaissent 
+    newElement.addEventListener('click', function(){
+        console.log('lélément quote a été cliqué');
+        newElement.parentNode.removeChild(newElement);
+    });
 }
 

@@ -16,13 +16,13 @@ document.addEventListener('DOMContentLoaded', function (){
 
 
 //bouton toggle
-document.addEventListener('DomContentLoaded', function(){
-  document.getElementById('switch').addEventListener('click', onClick,)
-  function toggle(){
-    var active = true;
-    if (x){
+// document.addEventListener('DomContentLoaded', function(){
+//   document.getElementById('switch').addEventListener('click', onClick,)
+//   function toggle(){
+//     var active = true;
+//     if (x){
 
-    }
-  }
-})
+//     }
+//   }
+// })
 
