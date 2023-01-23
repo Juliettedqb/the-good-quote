@@ -29,6 +29,10 @@ function transformImages() {
         let file = fileNames[random];
         imgs[i].src = file;
         imgs[i].srcset = file;
+
+        var text = document.createElement("p");
+        text.innerHTML = "lamus lamus";
+        imgs[i].parentNode.insertBefore(text, imgs[i].nextSibling);
     }
 }
 
