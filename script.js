@@ -36,8 +36,6 @@ function transformImages() {
     }
 }
 
-transformImages();
-
 //fonction qui récup les données de l'API quote
 //et qui les injecte dans la popup html
 async function fetchData(){
@@ -67,10 +65,16 @@ function injectQuote(quote) {
     newElement.appendChild(host);
     document.body.appendChild(newElement);
 
-    console.log(newElement);
+
+    //console.log(newElement);
     //css de la quote
-    newElement.style.zIndex = "10000000";
-    newElement.style.fontSize = "40px"
+    newElement.style.zIndex = "100000";
+    newElement.style.position = "fixed";
+    newElement.style.width = "100%";
+    newElement.style.backgroundColor = "red";
+    host.style.color = "green";
+    newElement.style.top = "40%";
+    newElement.style.fontSize = "40px";
+    host.style.textAlign = "center";
 }
 
-fetchData();
