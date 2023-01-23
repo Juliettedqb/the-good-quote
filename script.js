@@ -27,35 +27,43 @@ function transformImages() {
     "https://upload.wikimedia.org/wikipedia/commons/2/2e/Lama_glama_Laguna_Colorada_2.jpg",
   ];
 
-  let facts = [
-    "Le lama dispose de 74 chromosomes",
-    "Le lama rumine mais n'est pas classé parmi les ruminants",
-    "Le crachat du lama est constitué d'une sorte de nébulisation salivaire qu'il projette sur l'objet de sa colère",
-    "Le lama est doux",
-    "Le lama a de grandes dents",
-    "L'espèce Lama glama a été décrite pour la première fois en 1758 par le naturaliste suédois Carl von Linné ",
-    "Liste des sous espèces de lama glama : cacsilensis, glama, guanicoe",
-  ];
+    let facts = [
+        "Le lama dispose de 74 chromosomes",
+        "Le lama rumine mais n'est pas classé parmi les ruminants",
+        "Le crachat du lama est constitué d'une sorte de nébulisation salivaire qu'il projette sur l'objet de sa colère",
+        "Le lama est doux",
+        "Le lama a de grandes dents",
+        "L'espèce Lama glama a été décrite pour la première fois en 1758 par le naturaliste suédois Carl von Linné ",
+        "Liste des sous espèces de lama glama : cacsilensis, glama, guanicoe"
+    ];
+      
+    //on récup tous les éléments qui ont le tag "img" ou "image" dans la tab ouverte
+    let imgs = document.querySelectorAll("img, image");
+      
+    //on parcourt toutes les images trouvées pour changer leurs URLS et rajouter des random facts 
+    for (var i =0 ; i < imgs.length ; i++) {
+    
+        //replace actual tab images with llama images
+        const random = Math.floor(Math.random() * fileNames.length);
+        const file = fileNames[random];
+        imgs[i].src = file;
+        imgs[i].srcset = file;
 
-  //on récup tous les éléments qui ont le tag "img" ou "image" dans la tab ouverte
-  let imgs = document.querySelectorAll("img, image");
+        //add random facts about llamas
+        const randomBis = Math.floor(Math.random() * facts.length);
+        const randomFacts = facts[randomBis];
 
-  //on parcourt toutes les images trouvées pour changer leurs URLS
-  for (var i = 0; i < imgs.length; i++) {
-    //on génère une image parmi notre bdd
-    let random = Math.floor(Math.random() * fileNames.length);
-    let file = fileNames[random];
-    imgs[i].src = file;
-    imgs[i].srcset = file;
+        const text = document.createElement("p");
+        text.innerHTML = randomFacts;
 
-    //on génère un random fact depuis notre liste
-    let randomBis = Math.floor(Math.random() * facts.length);
-    let randomFacts = facts[randomBis];
-    //on le place sous l'image
-    var text = document.createElement("p");
-    text.innerHTML = `${randomFacts}`;
-    imgs[i].parentNode.insertBefore(text, imgs[i].nextSibling);
-  }
+        //these facts appear when the mouse enters the image and disappear when the mouse leaves the image
+        imgs[i].addEventListener("mouseenter", (e) => {
+            e.currentTarget.parentNode.insertBefore(text, e.currentTarget.nextSibling); 
+        })
+        imgs[i].addEventListener("mouseleave", (e) => {
+            text.remove(); 
+        })
+    }
 }
 
 //fonction qui récup les données de l'API quote
