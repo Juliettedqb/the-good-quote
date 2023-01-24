@@ -6,6 +6,7 @@ chrome.tabs.onUpdated.addListener(function(tabId, changeInfo, tab){
       })
       //on rajoute un clear du storage au lancement de l'extension
       chrome.storage.local.clear(function() {
+        console.log('clear depuis le background')
         var error = chrome.runtime.lastError;
         if (error) {
             console.error(error);

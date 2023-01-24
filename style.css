@@ -15,7 +15,7 @@ button {
     cursor:pointer;
     font-family: 'Parisienne', cursive;
 }
-/*
+
 input[type=checkbox]{
     height: 0;
     width: 0;
@@ -57,5 +57,4 @@ input[type=checkbox]{
   label:active:after {
     width: 100px;
   }
-  */
   
