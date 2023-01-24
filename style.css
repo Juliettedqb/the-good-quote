@@ -3,19 +3,6 @@ body {
     width:500px;
 }
 
-button {
-    width:30%;
-    font-size:20px;
-    color:white;
-    background:linear-gradient(#7EE8FA, #EEC0C6);
-    border-width:0px;
-    border-radius:20px;
-    padding:5px;
-    font-weight: bold;
-    cursor:pointer;
-    font-family: 'Parisienne', cursive;
-}
-
 input[type=checkbox]{
     height: 0;
     width: 0;

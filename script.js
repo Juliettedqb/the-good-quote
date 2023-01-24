@@ -1,12 +1,3 @@
-// //on écoute le changement du storage déclenché par le bouton de la popup
-// chrome.storage.local.onChanged.addListener((changes, local) => {
-//   //puis on lance les quotes + les lamas
-//   fetchData();
-//   transformImages();
-//   //tester avec chrome.runtime.sendMessage ????? 
-//   console.log("coucou depuis le chrome storage écouteur de changement");
-// });
-
 //on écoute le changement du storage déclenché par le bouton de la popup
 chrome.storage.onChanged.addListener(() => {
   chrome.storage.local.get(["toggle"]).then ((result) => {
@@ -16,7 +7,8 @@ chrome.storage.onChanged.addListener(() => {
           fetchData();
           transformImages();
       } else {
-          console.log("ça marche aussi");
+          newElement = document.getElementById("newElement");
+          newElement.parentNode.removeChild(newElement);
       }
   })
 })
@@ -106,9 +98,6 @@ async function fetchData() {
   } else {
     injectQuote(record.content);
   }
-
-  //appel de la fonction pour faire disparaître la quote
-  removeQuote();
 }
 
 //fonction qui créé une nouvelle div html dans laquelle on met la quote
@@ -165,22 +154,4 @@ function injectQuote(quote) {
   } else {
     console.log("error la new div était déjà créée !!!!!!");
   }
-}
-
-function removeQuote() {
-  newElement = document.getElementById("newElement");
-  //au click sur la quote, les 3 divs disparaissent
-  newElement.addEventListener("click", function () {
-    console.log("l'élément quote a été cliqué");
-    newElement.parentNode.removeChild(newElement);
-
-      //on rajoute un clear du storage quand on clique pour enlever la quote
-        chrome.storage.local.clear(function () {
-        console.log('clear depuis le remove quote')
-        var error = chrome.runtime.lastError;
-        if (error) {
-        console.error(error);
-        }
-    });
-  });
 }
