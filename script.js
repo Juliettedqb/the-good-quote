@@ -1,20 +1,20 @@
-//on écoute le changement du storage déclenché par le bouton de la popup
+//listening to changes in chrome local storage
 chrome.storage.onChanged.addListener(() => {
-  chrome.storage.local.get(["toggle"]).then ((result) => {
-      console.log(result.toggle)
-      if (result.toggle == true){
-          console.log("ça marche")
-          fetchData();
-          transformImages();
-      } else {
-          newElement = document.getElementById("newElement");
-          newElement.parentNode.removeChild(newElement);
-      }
-  })
-})
+  //checking toggle value
+  chrome.storage.local.get(["toggle"]).then((result) => {
+    //console.log(result.toggle)
+    if (result.toggle == true) {
+      //launching script functionalities
+      fetchData();
+      transformImages();
+    } else {
+      //removing quote
+      newElement.remove();
+    }
+  });
+});
 
-
-//fonction qui remplace les images de la page par des lamas
+//set function to replace images with llamas and add random facts
 function transformImages() {
   let fileNames = [
     "https://static.cnews.fr/sites/default/files/lama_morbihan.jpg",
@@ -35,47 +35,49 @@ function transformImages() {
     "https://upload.wikimedia.org/wikipedia/commons/2/2e/Lama_glama_Laguna_Colorada_2.jpg",
   ];
 
-    let facts = [
-        "Le lama dispose de 74 chromosomes",
-        "Le lama rumine mais n'est pas classé parmi les ruminants",
-        "Le crachat du lama est constitué d'une sorte de nébulisation salivaire qu'il projette sur l'objet de sa colère",
-        "Le lama est doux",
-        "Le lama a de grandes dents",
-        "L'espèce Lama glama a été décrite pour la première fois en 1758 par le naturaliste suédois Carl von Linné ",
-        "Liste des sous espèces de lama glama : cacsilensis, glama, guanicoe"
-    ];
-      
-    //on récup tous les éléments qui ont le tag "img" ou "image" dans la tab ouverte
-    let imgs = document.querySelectorAll("img, image");
-      
-    //on parcourt toutes les images trouvées pour changer leurs URLS et rajouter des random facts 
-    for (var i =0 ; i < imgs.length ; i++) {
-    
-        //replace actual tab images with llama images
-        const random = Math.floor(Math.random() * fileNames.length);
-        const file = fileNames[random];
-        imgs[i].src = file;
-        imgs[i].srcset = file;
+  let facts = [
+    "Le lama dispose de 74 chromosomes",
+    "Le lama rumine mais n'est pas classé parmi les ruminants",
+    "Le crachat du lama est constitué d'une sorte de nébulisation salivaire qu'il projette sur l'objet de sa colère",
+    "Le lama est doux",
+    "Le lama a de grandes dents",
+    "L'espèce Lama glama a été décrite pour la première fois en 1758 par le naturaliste suédois Carl von Linné ",
+    "Liste des sous espèces de lama glama : cacsilensis, glama, guanicoe",
+  ];
 
-        //add random facts about llamas
-        const randomBis = Math.floor(Math.random() * facts.length);
-        const randomFacts = facts[randomBis];
+  //stocking all elements tagged as img or image
+  let imgs = document.querySelectorAll("img, image");
 
-        const text = document.createElement("p");
-        text.innerHTML = randomFacts;
+  //looping through array [imgs]
+  for (var i = 0; i < imgs.length; i++) {
+    //generating an integer random number in range of array [fileNames]
+    const random = Math.floor(Math.random() * fileNames.length);
+    const file = fileNames[random];
+    //replacing actual tab images with llama images
+    imgs[i].src = file;
+    imgs[i].srcset = file;
 
-        //these facts appear when the mouse enters the image and disappear when the mouse leaves the image
-        imgs[i].addEventListener("mouseenter", (e) => {
-            e.currentTarget.parentNode.insertBefore(text, e.currentTarget.nextSibling); 
-        })
-        imgs[i].addEventListener("mouseleave", (e) => {
-            text.remove(); 
-        })
-    }
+    //adding random facts about llamas
+    const randomBis = Math.floor(Math.random() * facts.length);
+    const randomFacts = facts[randomBis];
+    //creating the element which will appear later (line 71)
+    const text = document.createElement("p");
+    text.innerHTML = randomFacts;
+
+    //these facts appear when the mouse enters the image and disappear when the mouse leaves the image
+    imgs[i].addEventListener("mouseenter", (e) => {
+      e.currentTarget.parentNode.insertBefore(
+        text,
+        e.currentTarget.nextSibling
+      );
+    });
+    imgs[i].addEventListener("mouseleave", (e) => {
+      text.remove();
+    });
+  }
 }
 
-//fonction qui récup les données de l'API quote
-//et qui les injecte dans la popup html
+//set function to fetch data from the Quotes API
 async function fetchData() {
   const options = {
     method: "GET",
@@ -89,69 +91,60 @@ async function fetchData() {
     "https://quotes15.p.rapidapi.com/quotes/random/?language_code=en",
     options
   );
-  //transfo des données en json
+  //switching data in json format
   const record = await res.json();
 
-  //on appelle la fonction qui créé l'élement
+  //calling injectQuote function
+  //adding an plan B if quote is undefined
   if (record.content == undefined) {
-    injectQuote("Carpe diem");
+    injectQuote("This lifechanging product is brougth to you by the spice girls of tech, Juliette, Manon and Alice. Be proud. Carpe diem...");
   } else {
     injectQuote(record.content);
   }
 }
 
-//fonction qui créé une nouvelle div html dans laquelle on met la quote
+//set function to create element that will display quotes
 function injectQuote(quote) {
-  //ajout d'une condition de vérification
-  let compteurQuote = 0 ; 
-  //il faut que la div n'existe pas déjà
-  if (compteurQuote == 0) {
-    const newElement = document.createElement("div");
-    newElement.className = "newQuote";
-    newElement.id = "newElement";
+  //creating html stuff
+  const newElement = document.createElement("div");
+  newElement.className = "newQuote";
+  newElement.id = "newElement";
 
-    const host = document.createElement("h3");
-    host.innerHTML = quote;
+  const host = document.createElement("h3");
+  host.innerHTML = quote;
 
-    const divQuote = document.createElement("div");
-    divQuote.className = "divQuote";
+  const divQuote = document.createElement("div");
+  divQuote.className = "divQuote";
 
-    newElement.appendChild(divQuote);
-    divQuote.appendChild(host);
-    document.body.appendChild(newElement);
-    //on ajoute 1 au compteur de quote 
-    compteurQuote += 1 ;
+  newElement.appendChild(divQuote);
+  divQuote.appendChild(host);
+  document.body.appendChild(newElement);
 
-    //création du bloc appel de l'API google pour recup la font
-    var link = document.createElement("link");
-    link.setAttribute("rel", "stylesheet");
-    link.setAttribute("type", "text/css");
-    link.setAttribute(
-      "href",
-      "https://fonts.googleapis.com/css2?family=Parisienne&display=swap"
-    );
-    document.head.appendChild(link);
+  //importing "Parisienne" font
+  var link = document.createElement("link");
+  link.setAttribute("rel", "stylesheet");
+  link.setAttribute("type", "text/css");
+  link.setAttribute(
+    "href",
+    "https://fonts.googleapis.com/css2?family=Parisienne&display=swap"
+  );
+  document.head.appendChild(link);
 
-    //css des trois éléments de la quote
-    newElement.style.zIndex = "100000";
-    newElement.style.position = "fixed";
-    newElement.style.width = "100%";
-    newElement.style.top = "30%";
+  //styling quote
+  newElement.style.zIndex = "100000";
+  newElement.style.position = "fixed";
+  newElement.style.width = "100%";
+  newElement.style.top = "23%";
 
-    host.style.color = "white";
-    host.style.textAlign = "center";
-    host.style.padding = "30px";
-    host.style.fontFamily = "'Parisienne', cursive";
+  host.style.color = "white";
+  host.style.textAlign = "center";
+  host.style.padding = "60px";
+  host.style.fontFamily = "'Parisienne', cursive";
+  host.style.fontSize = "xxx-large"
 
-    divQuote.style.background = "linear-gradient(#7EE8FA, #EEC0C6)";
-    divQuote.style.padding = "30px";
-    divQuote.style.fontSize = "30px";
-    divQuote.style.width = "50%";
-    divQuote.style.margin = "auto";
-    divQuote.style.borderRadius = "50px";
-    divQuote.style.boxShadow = "1px 5px 10px 1px #c3bebe";
-    //divQuote.style.backgroundImage="url('icons/lama.png')";
-  } else {
-    console.log("error la new div était déjà créée !!!!!!");
-  }
+  divQuote.style.background = "linear-gradient(#60cde0, #eaa5ae)";
+  divQuote.style.width = "50%";
+  divQuote.style.margin = "auto";
+  divQuote.style.borderRadius = "50px";
+  divQuote.style.boxShadow = "1px 5px 10px 1px #c3bebe";
 }
