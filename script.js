@@ -78,6 +78,7 @@ function transformImages() {
 }
 
 //set function to fetch data from the Quotes API
+//https://rapidapi.com/martin.svoboda/api/quotes15/?utm_source=RapidAPI.com%2Fguides&utm_medium=DevRel&utm_campaign=DevRel
 async function fetchData() {
   const options = {
     method: "GET",
