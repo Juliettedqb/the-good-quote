@@ -6,8 +6,8 @@ In the future, we would like to add options, make it work only on the active tab
 
 Developped by :
 
-Alice Darondeau 
-Manon Mucchielli
+Alice Darondeau,
+Manon Mucchielli,
 Juliette de Quatrebarbes 
 
 
