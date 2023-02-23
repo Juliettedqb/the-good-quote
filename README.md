@@ -4,7 +4,7 @@ This project is a chrome extension that replaces all images with llamas, injects
 
 In the future, we would like to add options, make it work only on the active tab and adapt it to other browsers. 
 
-Developped by :
+Developed by :
 
 Alice Darondeau,
 Manon Mucchielli,
